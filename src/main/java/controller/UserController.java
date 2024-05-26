@@ -18,6 +18,16 @@ public class UserController {
 	public List<UserEntity> findAll(){
 		return pessoasRepository.findAll();
 	}
+	
+	public boolean createUser(UserEntity user) {
+		try {
+			pessoasService.createUser(user);
+			return true;
+		} catch (Exception e) {
+			System.out.println("Erro ao criar usuário" + e);
+			return false;
+		}
+	}
 
 	public UserEntity updateUser(UserEntity user) {
 		try {
@@ -26,6 +36,6 @@ public class UserController {
 			System.out.println("Erro ao atualizar usuário" + e);
 			return null;
 		}
-		}
+	}
 	
 }

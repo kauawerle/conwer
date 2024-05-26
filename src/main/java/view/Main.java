@@ -1,12 +1,6 @@
 package view;
 
-import java.time.LocalTime;
-
 import java.util.Scanner;
-
-import model.entities.UserEntity;
-import model.repositories.UserRepository;
-import model.services.UserService;
 
 public class Main {
 
@@ -26,8 +20,8 @@ public class Main {
 			int escolha = sc.nextInt();
 			switch (escolha) {
 			case 1: {
-				SaveAddress salvarEndereco = new SaveAddress();
-				salvarEndereco.criarUmaPessoaNome();
+				SaveUser salvarUser = new SaveUser();
+				salvarUser.criarUmaPessoaNome();
 				break;
 			}
 			case 2:{
@@ -41,7 +35,7 @@ public class Main {
 			}
 			case 4:{
 				System.out.println("Escolha pelo id");
-				SaveAddress updateUser = new SaveAddress();
+				SaveUser updateUser = new SaveUser();
 				updateUser.updateUser();
 				break;
 			}

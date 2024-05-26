@@ -17,7 +17,6 @@ public class UserService {
     }
 
     public UserEntity updateUser(UserEntity user) {
-    	System.out.println(user);
         return (UserEntity) userRepository.update(user);
     }
 

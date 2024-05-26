@@ -1,6 +1,5 @@
 package model.repositories;
 
-import controller.UserController;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -23,7 +22,6 @@ public class UserRepository implements BasicCrud {
 	
 	@Override
 	public Object updateById(Object object) {
-		System.out.println(object);
 		UserEntity userUpdated = (UserEntity) object;
 		em.getTransaction().begin();
 		em.merge(userUpdated);
