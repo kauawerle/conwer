@@ -12,6 +12,7 @@ public class Main {
 		System.out.println("2 - Ver todos os registros");
 		System.out.println("3 - Ver dados de um usuario");
 		System.out.println("4 - Atualizar usuario");
+		System.out.println("5 - Remover usuario");
 		System.out.println("0 - Para sair");
 		
 		boolean rodar = true;
@@ -34,16 +35,20 @@ public class Main {
 				break;
 			}
 			case 4:{
-				System.out.println("Escolha pelo id");
 				SaveUser updateUser = new SaveUser();
 				updateUser.updateUser();
+				break;
+			}
+			case 5:{
+				SaveUser updateUser = new SaveUser();
+				updateUser.deleteUser();
 				break;
 			}
 			case 0:{
 				rodar=false;
 			}
-			}
 		}
+	}
 		
 //		LocalTime work_hour = LocalTime.of(23, 0, 0);
 //		UserRepository userRepository = new UserRepository();

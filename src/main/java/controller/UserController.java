@@ -30,12 +30,7 @@ public class UserController {
 	}
 
 	public UserEntity updateUser(UserEntity user) {
-		try {
-			return pessoasService.updateUser(user);
-		} catch(Exception e) {
-			System.out.println("Erro ao atualizar usuário" + e);
-			return null;
-		}
+		return pessoasService.updateUser(user);
 	}
 	
 }

@@ -10,7 +10,4 @@ public class UserOperations {
 	public UserEntity criarConta(UserEntity pessoa) {
 		return criarRegistroPessoas.createUser(pessoa);
 	}
-	
-	
-
 }
