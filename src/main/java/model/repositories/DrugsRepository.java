@@ -4,16 +4,15 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
+import model.entities.DrugsEntity;
 
-import model.entities.AddressEntity;
-
-public abstract class DrugsRepository implements BasicCrud {
+public class DrugsRepository implements BasicCrud {
 
 	EntityManager em = Persistence.createEntityManagerFactory("BancoConsultorio").createEntityManager();
 		
 		@Override
 		public Object create(Object obj) {
-			var address = (AddressEntity)obj;
+			var address = (DrugsEntity)obj;
 			em.getTransaction().begin();
 			em.persist(address);
 			em.getTransaction().commit();
@@ -22,7 +21,7 @@ public abstract class DrugsRepository implements BasicCrud {
 		
 		@Override
 		public Object updateById(Object object) {
-			AddressEntity address = (AddressEntity) object;
+			DrugsEntity address = (DrugsEntity) object;
 			em.getTransaction().begin();
 			em.merge(address);
 			em.getTransaction().commit();
@@ -31,7 +30,7 @@ public abstract class DrugsRepository implements BasicCrud {
 		
 		public void delete(Long id) {
 			em.getTransaction().begin();
-			var address = (AddressEntity) findById(id);
+			var address = (DrugsEntity) findById(id);
 			em.remove(address);
 			em.getTransaction().commit();
 		}
@@ -39,7 +38,7 @@ public abstract class DrugsRepository implements BasicCrud {
 		@Override
 		public Object findById(Long id) {
 			try {
-				AddressEntity address = em.find(AddressEntity.class, id);
+				DrugsEntity address = em.find(DrugsEntity.class, id);
 				return address;
 			} catch (Exception e) {
 				
@@ -49,15 +48,15 @@ public abstract class DrugsRepository implements BasicCrud {
 
 		@Override
 		public Object update(Object obj) {
-			AddressEntity address = (AddressEntity) obj;
+			DrugsEntity address = (DrugsEntity) obj;
 			em.getTransaction().begin();
 			em.merge(address);
 			em.getTransaction().commit();
 			return null;
 		}
 		
-		public List<AddressEntity> findAll(){
-			return em.createQuery("SELECT p FROM tb_address p where p.id >1",AddressEntity.class).getResultList();
+		public List<DrugsEntity> findAll(){
+			return em.createQuery("SELECT p FROM DrugsEntity p where p.id > 0",DrugsEntity.class).getResultList();
 		}
 	
 

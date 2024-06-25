@@ -19,38 +19,26 @@ public class ScheduleEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(name = "consult_list")
-	private Array consult_list;
-
-	@Column(name = "disponibility")
-	private Array disponibility;
+	@Column(name = "hour")
+	private String hour;
 	
+	@Column(name = "date")
+	private String date;
+
 	@ManyToOne
 	@JoinColumn(name = "id_user")
 	private UserEntity user;
 
+	@ManyToOne
+	@JoinColumn(name = "id_client")
+	private UserEntity client;
+	
 	public long getId() {
 		return id;
 	}
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public Array getConsult_list() {
-		return consult_list;
-	}
-
-	public void setConsult_list(Array consult_list) {
-		this.consult_list = consult_list;
-	}
-
-	public Array getDisponibility() {
-		return disponibility;
-	}
-
-	public void setDisponibility(Array disponibility) {
-		this.disponibility = disponibility;
 	}
 
 	public UserEntity getUser() {
@@ -61,13 +49,38 @@ public class ScheduleEntity {
 		this.user = user;
 	}
 
+	public String getHour() {
+		return hour;
+	}
+
+	public void setHour(String hour) {
+		this.hour = hour;
+	}
+
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public UserEntity getClient() {
+		return client;
+	}
+
+	public void setClient(UserEntity client) {
+		this.client = client;
+	}
+	
+	
 	public ScheduleEntity() {}
-	public ScheduleEntity(long id, Array consult_list, Array disponibility, UserEntity user) {
+	public ScheduleEntity(String hour, String date, UserEntity user, UserEntity client) {
 		super();
-		this.id = id;
-		this.consult_list = consult_list;
-		this.disponibility = disponibility;
+		this.date = date;
+		this.hour = hour;
 		this.user = user;
+		this.client = client;
 	}
 	
 }

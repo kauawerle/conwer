@@ -61,9 +61,8 @@ public class DrugsEntity {
 
 
 	public DrugsEntity () {}
-	public DrugsEntity(long id, String name, String description, Double price, AppointmentEntity appointment) {
+	public DrugsEntity(String name, String description, Double price) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;

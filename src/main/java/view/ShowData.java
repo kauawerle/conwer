@@ -18,5 +18,4 @@ public class ShowData {
 			System.out.println("ID:"+x.getId()+" - Nome: "+x.getName());
 		}
 	}
-
 }

@@ -5,17 +5,16 @@
                                  http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
              version="2.1">
 
-    <persistence-unit name="myPersistenceUnit" transaction-type="RESOURCE_LOCAL">
+    <persistence-unit name="BancoConsultorio" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <!-- Specify the entity classes or packages -->
-        <class>model.entities.AddressEntity</class>
         <class>model.entities.UserEntity</class>
-		<class>model.entities.DrugsEntity</class>
-		<class>model.entities.ScheduleEntity</class>
-		<class>model.entities.ServiceEntity</class>
-		<class>model.entities.AppointmentEntity</class>
-		
+        <class>model.entities.DrugsEntity</class>
+        <class>model.entities.ScheduleEntity</class>
+        <class>model.entities.ServiceEntity</class>
+        <class>model.entities.AppointmentEntity</class>
+
         <!-- Database connection properties -->
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>

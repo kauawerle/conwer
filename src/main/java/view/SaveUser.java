@@ -5,13 +5,9 @@ import java.util.Scanner;
 
 import controller.UserController;
 import model.entities.UserEntity;
-import model.repositories.UserRepository;
-import model.services.UserService;
 
 
 public class SaveUser {
-	UserRepository userRepository = new UserRepository();
-    UserService userService = new UserService(userRepository);
     UserController userController = new UserController();   
 	
 	private Scanner sc = new Scanner(System.in);
@@ -47,7 +43,7 @@ public class SaveUser {
 						null, 
 						null);
 		
-		userService.createUser(newUser);
+		userController.createUser(newUser);
 	}
 	
 	public void updateUser() {
@@ -96,7 +92,7 @@ public class SaveUser {
 	            if (currentUser != null) {
 	                System.out.println("Atualizado");
 	                updated = false;
-	                userService.updateUser(currentUser);
+	                userController.updateUser(currentUser);
 	            } else {
 	                System.out.println("não atualizado");
 	            }
@@ -119,7 +115,7 @@ public class SaveUser {
             return;
         }
         
-        userService.deleteUser(currentUser.getId());
+        userController.deleteUser(currentUser.getId());
         System.out.println("Usuário deletado!");
 	}
 }

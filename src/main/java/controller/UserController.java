@@ -9,7 +9,7 @@ import model.services.UserService;
 public class UserController {
 	
 	private UserRepository pessoasRepository = new UserRepository();
-	private UserService pessoasService = new UserService(null);
+	private UserService pessoasService = new UserService(pessoasRepository);
 	
 	public UserEntity findPessoasById(Long id) {
 		return (UserEntity) pessoasRepository.findById(id);
@@ -33,4 +33,7 @@ public class UserController {
 		return pessoasService.updateUser(user);
 	}
 	
+	public void deleteUser(Long id) {
+		pessoasService.deleteUser(id);
+    }
 }

@@ -50,10 +50,10 @@ public class UserEntity {
 	@Column(name = "speciality")
 	private String speciality;
 	
-	@OneToMany
-	@JoinColumn(name = "id_address", referencedColumnName = "id")
-    private List<AddressEntity> address;
-
+	@ManyToOne
+	@JoinColumn(name = "id_user", referencedColumnName = "id_user")
+	private ScheduleEntity id_user;
+	
 	@ManyToOne
 	@JoinColumn(name = "id_schedule", referencedColumnName = "id")
     private ScheduleEntity schedule;
@@ -142,10 +142,6 @@ public class UserEntity {
 		this.speciality = speciality;
 	}
 
-	public List<AddressEntity> getAddress() {
-		return address;
-	}
-
 	
 	public AppointmentEntity getAppointment() {
 		return appointment;
@@ -153,10 +149,6 @@ public class UserEntity {
 
 	public void setAppointment(AppointmentEntity appointment) {
 		this.appointment = appointment;
-	}
-
-	public void setAddress(List<AddressEntity> address) {
-		this.address = address;
 	}
 
 	public ScheduleEntity getSchedule() {
