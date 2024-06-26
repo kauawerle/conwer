@@ -39,9 +39,7 @@ public class SaveUser {
 						"111.111.111-02", 
 						false, 
 						work_hour, 
-						"teste", 
-						null, 
-						null);
+						"teste");
 		
 		userController.createUser(newUser);
 	}

@@ -161,8 +161,7 @@ public class UserEntity {
 
 	public UserEntity() {}
 	public UserEntity( String name, String email, String password, String cellphone, int age, String cpf,
-			Boolean isprofessional, LocalTime work_hour, String speciality,
-			ScheduleEntity schedule, AppointmentEntity appointment) {
+			Boolean isprofessional, LocalTime work_hour, String speciality) {
 		super();
 		this.name = name;
 		this.email = email;
@@ -173,7 +172,6 @@ public class UserEntity {
 		this.isprofessional = isprofessional;
 		this.work_hour = work_hour;
 		this.speciality = speciality;
-		this.appointment = appointment;
 	}
 	
 }

@@ -9,7 +9,7 @@ import model.entities.UserEntity;
 
 public class UserRepository implements BasicCrud {
 	
-	EntityManager em = Persistence.createEntityManagerFactory("myPersistenceUnit").createEntityManager();
+	EntityManager em = Persistence.createEntityManagerFactory("BancoConsultorio").createEntityManager();
 	 
 	@Override
 	public Object create(Object obj) {

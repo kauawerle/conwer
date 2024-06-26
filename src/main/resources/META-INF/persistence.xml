@@ -9,11 +9,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <!-- Specify the entity classes or packages -->
-        <class>model.entities.UserEntity</class>
-        <class>model.entities.DrugsEntity</class>
-        <class>model.entities.ScheduleEntity</class>
-        <class>model.entities.ServiceEntity</class>
-        <class>model.entities.AppointmentEntity</class>
+        <class>model.entities</class>
 
         <!-- Database connection properties -->
         <properties>
