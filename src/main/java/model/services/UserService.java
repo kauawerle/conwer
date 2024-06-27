@@ -2,6 +2,7 @@ package model.services;
 
 import java.util.List;
 
+import model.dto.LoginDto;
 import model.entities.UserEntity;
 import model.repositories.UserRepository;
 
@@ -23,6 +24,17 @@ public class UserService {
 
     public void deleteUser(Long id) {
         userRepository.delete(id);
+    }
+
+    public UserEntity login(LoginDto login) {
+        UserEntity user = userRepository.findByEmail(login.getEmail());
+        if(user == null) {
+            throw new RuntimeException("Usuário não encontrado");
+        }
+        if (!user.getPassword().equals(login.getPassword())) {
+            throw new RuntimeException("Usuario ou Senha inválida");
+        }
+        return user;
     }
 
     public UserEntity getUserById(Long id) {

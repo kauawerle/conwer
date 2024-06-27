@@ -82,13 +82,11 @@ public class ServiceEntity {
 	}
 
 	public ServiceEntity() {}
-	public ServiceEntity(long id, String name, String description, Double price, String duration, AppointmentEntity appointment) {
+	public ServiceEntity( String name, String description, Double price, String duration) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
 		this.duration = duration;
-		this.appointment = appointment;
 	}
 }

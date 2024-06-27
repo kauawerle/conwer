@@ -2,6 +2,7 @@ package controller;
 
 import java.util.List;
 
+import model.dto.LoginDto;
 import model.entities.UserEntity;
 import model.repositories.UserRepository;
 import model.services.UserService;
@@ -36,4 +37,13 @@ public class UserController {
 	public void deleteUser(Long id) {
 		pessoasService.deleteUser(id);
     }
+
+	public UserEntity login(LoginDto login) {
+		try {
+			return pessoasService.login(login);
+		}catch (Exception e){
+			throw new RuntimeException(e);
+		}
+	}
+
 }

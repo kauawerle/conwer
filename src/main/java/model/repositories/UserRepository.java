@@ -3,7 +3,9 @@ package model.repositories;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import model.entities.UserEntity;
 
@@ -45,6 +47,24 @@ public class UserRepository implements BasicCrud {
 			
 		}
 		return null;
+	}
+
+	public UserEntity findByEmail(String email) {
+		try {
+			TypedQuery<UserEntity> query = em.createQuery("SELECT u FROM UserEntity u WHERE u.email = :email", UserEntity.class);
+			query.setParameter("email", email);
+			List<UserEntity> results = query.getResultList();
+
+			if (results.size() == 1) {
+				return results.get(0);
+			} else if (results.size() > 1) {
+				throw new NonUniqueResultException("Multiple users found with the same email");
+			} else {
+				return null; // Nenhum resultado encontrado
+			}
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override

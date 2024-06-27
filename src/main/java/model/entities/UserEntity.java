@@ -142,7 +142,6 @@ public class UserEntity {
 		this.speciality = speciality;
 	}
 
-	
 	public AppointmentEntity getAppointment() {
 		return appointment;
 	}

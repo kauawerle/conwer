@@ -21,7 +21,7 @@ public class ServiceController {
         return servService.getAllServices();
     }
 
-    public boolean createDrug(ServiceEntity service) {
+    public boolean createService(ServiceEntity service) {
         try {
             servService.createService(service);
             return true;

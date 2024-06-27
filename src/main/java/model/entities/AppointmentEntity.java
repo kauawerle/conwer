@@ -120,10 +120,9 @@ public class AppointmentEntity {
 	}
 
 	public AppointmentEntity() {}
-	public AppointmentEntity(long id, String name, String date, String hour, String name_client,
+	public AppointmentEntity(String name, String date, String hour, String name_client,
 			String name_professional, int status, Array id_drug, ServiceEntity id_service) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.hour = hour;
