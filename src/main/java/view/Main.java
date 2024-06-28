@@ -1,28 +1,54 @@
 package view;
 
+import controller.AppointmentController;
 import controller.DrugController;
 import controller.ServiceController;
 import controller.UserController;
 import model.dto.LoginDto;
+import model.entities.AppointmentEntity;
 import model.entities.DrugsEntity;
 import model.entities.ServiceEntity;
 import model.entities.UserEntity;
+import model.lib.DateLabelFormatter;
+import model.repositories.ServiceRepository;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.SqlDateModel;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.time.LocalTime;
+import java.util.Date;
+import java.util.List;
+import java.util.Properties;
 
 import javax.swing.*;
 
 public class Main extends JFrame {
 
-	private JTextField nomeField, emailField, celularField, idadeField, cpfField, userField, specialityField, descField, priceField, durationField, nameClientField, hourAppointmentField, dateAppointmentField;
+	private JTextField nomeField;
+	private JTextField emailField;
+	private JTextField celularField;
+	private JTextField idadeField;
+	private JTextField cpfField;
+	private JTextField userField;
+	private JTextField specialityField;
+	private JTextField descField;
+	private JTextField priceField;
+	private JTextField durationField;
+	private JTextField nameClientField;
+	private JTextField hourAppointmentField;
+	private JTextField dateAppointmentField;
 	private JPasswordField senhaField, confirmarSenhaField;
+	private JComboBox<ServiceEntity> serviceComboBox;
+	private ServiceEntity services;
 
 	UserController userController = new UserController();
 	DrugController drugsController = new DrugController();
 	ServiceController serviceController = new ServiceController();
+	AppointmentController appointmentController =  new AppointmentController();
 
 	public Main() {
 		JFrame frame = new JFrame("Home");
@@ -150,7 +176,7 @@ public class Main extends JFrame {
 		});
 	}
 
-	private void MenuPage() {
+	private void MenuPage(UserEntity user) {
 		JFrame frame = new JFrame("Menu");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel panel = new JPanel(new GridLayout(3, 2));
@@ -181,7 +207,7 @@ public class Main extends JFrame {
 		registerAppointmentBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				cadastrarServico();
+				cadastrarConsulta(user);
 			}
 		});
 
@@ -189,12 +215,13 @@ public class Main extends JFrame {
 		panel.add(new JLabel("Bem-vindo! Escolha uma opção:", SwingConstants.CENTER));
 		panel.add(registerDrugsBtn);
 		panel.add(registerServiceBtn);
+		panel.add(registerAppointmentBtn);
 	}
 
 	private void cadastrarRemedios() {
 		JFrame frame = new JFrame("Cadastar remédio");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JPanel panel = new JPanel(new GridLayout(4, 2));
+		JPanel panel = new JPanel(new GridLayout(5, 2));
 
 		frame.setVisible(true);
 		frame.getContentPane().add(panel);
@@ -266,7 +293,7 @@ public class Main extends JFrame {
 		});
 	}
 
-	private void cadastrarConsulta() {
+	private void cadastrarConsulta(UserEntity user) {
 		JFrame frame = new JFrame("Cadastar Consulta");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel panel = new JPanel(new GridLayout(8, 2));
@@ -288,15 +315,45 @@ public class Main extends JFrame {
 		JLabel clientNameLabel = new JLabel("Digite o nome do cliente:");
 		nameClientField = new JTextField(10);
 
+//		SqlDateModel model = new SqlDateModel();
+//		Properties p = new Properties();
+//		p.put("text.today", "Today");
+//		p.put("text.month", "Month");
+//		p.put("text.year", "Year");
+//		JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+//		JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+//		java.util.Date selectedDate = (java.util.Date) datePicker.getModel().getValue();
+
+//		dateAppointmentField = selectedDate;
+
 
 		panel.add(nomeLabel);
 		panel.add(nomeField);
-		panel.add(dateAppointmentLabel);
-		panel.add(dateAppointmentField);
 		panel.add(hourAppointmentLabel);
 		panel.add(hourAppointmentField);
+		panel.add(dateAppointmentLabel);
+		panel.add(dateAppointmentField);
 		panel.add(clientNameLabel);
 		panel.add(nameClientField);
+
+		JLabel serviceLabel = new JLabel("Selecione o serviço:");
+		serviceComboBox = new JComboBox<>();
+		fillServiceComboBox();
+		panel.add(serviceLabel);
+		panel.add(serviceComboBox);
+
+
+		serviceComboBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ServiceEntity selectedService = (ServiceEntity) serviceComboBox.getSelectedItem();
+				if (selectedService != null) {
+					System.out.println("Serviço selecionado: " + selectedService.getName()); // Exemplo de exibição do nome do serviço
+
+					services = selectedService;
+				}
+			}
+		});
 
 		JButton registerAppointmentBtn = new JButton("Cadastre a consulta");
 		panel.add(registerAppointmentBtn);
@@ -304,9 +361,17 @@ public class Main extends JFrame {
 		registerAppointmentBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				registerService();
+				frame.setVisible(false);
+				registerAppointment(user,services);
 			}
 		});
+	}
+
+	private void fillServiceComboBox() {
+		List<ServiceEntity> services = serviceController.findAll();
+		for (ServiceEntity service : services) {
+			serviceComboBox.addItem(service);
+		}
 	}
 
 	private void cadastrarUsuario() {
@@ -345,8 +410,8 @@ public class Main extends JFrame {
 		String email = userField.getText();
 		String password = senhaField.getText();
 		LoginDto login = new LoginDto(email, password);
-		userController.login(login);
-		MenuPage();
+		var user = userController.login(login);
+		MenuPage(user);
 	}
 
 	private void registerDrugs() {
@@ -381,6 +446,29 @@ public class Main extends JFrame {
 
 		serviceController.createService(service);
 		JOptionPane.showMessageDialog(this, "Serviço cadastrado com sucesso!");
+	}
+
+	public void registerAppointment(UserEntity user, ServiceEntity service) {
+		String name = nomeField.getText();
+		String dateAppointment = dateAppointmentField.getText();
+		String hourAppointment = hourAppointmentField.getText();
+		String name_client = nameClientField.getText();
+
+		var userFind = userController.findPessoasById(user.getId());
+
+		AppointmentEntity app = new AppointmentEntity(
+				name,
+				dateAppointment,
+				hourAppointment,
+				name_client,
+				userFind.getName(),
+				0,
+				service.getId(),
+				userFind.getId()
+		);
+
+		appointmentController.createDrug(app);
+		JOptionPane.showMessageDialog(this, "Consulta cadastrada com sucesso!");
 	}
 
 	public static void main(String[] args) {

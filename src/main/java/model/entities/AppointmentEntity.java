@@ -38,14 +38,11 @@ public class AppointmentEntity {
 	private int status;
 	
 	@Column(name = "id_drug")
-	private Array id_drug;
+	private String[] id_drug;
+
+    private long id_service;
 	
-	@ManyToOne
-	@JoinColumn(name = "id_service", referencedColumnName = "id")
-    private ServiceEntity id_service;
-	
-	@ManyToOne
-    private UserEntity id_user;
+    private long id_user;
 	
 	public long getId() {
 		return id;
@@ -103,25 +100,33 @@ public class AppointmentEntity {
 		this.status = status;
 	}
 
-	public Array getId_drug() {
+	public String[] getId_drug() {
 		return id_drug;
 	}
 
-	public void setId_drug(Array id_drug) {
+	public void setId_drug(String[] id_drug) {
 		this.id_drug = id_drug;
 	}
 
-	public ServiceEntity getId_service() {
+	public long getId_service() {
 		return id_service;
 	}
 
-	public void setId_service(ServiceEntity id_service) {
+	public void setId_service(long id_service) {
 		this.id_service = id_service;
+	}
+
+	public long getId_user() {
+		return id_user;
+	}
+
+	public void setId_user(long id_user) {
+		this.id_user = id_user;
 	}
 
 	public AppointmentEntity() {}
 	public AppointmentEntity(String name, String date, String hour, String name_client,
-			String name_professional, int status, Array id_drug, ServiceEntity id_service) {
+			String name_professional, int status, long id_service, long id_user) {
 		super();
 		this.name = name;
 		this.date = date;
@@ -129,8 +134,9 @@ public class AppointmentEntity {
 		this.name_client = name_client;
 		this.name_professional = name_professional;
 		this.status = status;
-		this.id_drug = id_drug;
+//		this.id_drug = id_drug;
 		this.id_service = id_service;
+		this.id_user = id_user;
 	}
 	
 	
