@@ -108,7 +108,6 @@ public class PatientsPanel extends JPanel {
         detalhes.setText(texto);
     }
 
-    // === Helpers ===
     private String getNome(UserEntity u) {
         try {
             return (String) u.getClass().getMethod("getNome").invoke(u);

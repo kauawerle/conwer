@@ -42,8 +42,7 @@ public class Main extends JFrame {
     private JComboBox<ServiceEntity> serviceComboBox;
     private ServiceEntity services;
 
-    // Guardamos referência das janelas para poder fechar quando necessário
-    private JFrame homeChoiceFrame; // primeira tela com "Login" / "Cadastrar"
+    private JFrame homeChoiceFrame;
     private JFrame loginFrame;
 
     UserController userController = new UserController();
@@ -52,7 +51,6 @@ public class Main extends JFrame {
     AppointmentController appointmentController =  new AppointmentController();
 
     public Main() {
-        // Tela inicial simples com opções Login/Cadastrar (mantida)
         homeChoiceFrame = new JFrame("Home");
         homeChoiceFrame.setSize(300, 200);
         homeChoiceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,9 +76,6 @@ public class Main extends JFrame {
         homeChoiceFrame.setVisible(true);
     }
 
-    // =========================
-    // CADASTRO DE USUÁRIO
-    // =========================
     private void Register () {
         setTitle("Cadastrar usuário");
         setSize(600, 300);
@@ -137,9 +132,6 @@ public class Main extends JFrame {
         setVisible(true);
     }
 
-    // =========================
-    // LOGIN
-    // =========================
     private void Login() {
         loginFrame = new JFrame("Login");
         loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -167,9 +159,6 @@ public class Main extends JFrame {
         loginButton.addActionListener(e -> loginUser());
     }
 
-    // =========================
-    // APÓS LOGIN: abre HomeFrame (NOVO)
-    // =========================
     private void abrirHome() {
         // Fecha janelas antigas
         if (loginFrame != null) loginFrame.dispose();
@@ -180,9 +169,6 @@ public class Main extends JFrame {
         home.setVisible(true);
     }
 
-    // =========================
-    // TELAS ANTIGAS (de cadastro de Remédio, Serviço, Consulta) — mantidas
-    // =========================
     private void cadastrarRemedios() {
         JFrame frame = new JFrame("Cadastar remédio");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // agora só fecha esta janela
@@ -310,9 +296,6 @@ public class Main extends JFrame {
         }
     }
 
-    // =========================
-    // AÇÕES DE NEGÓCIO
-    // =========================
     private void cadastrarUsuario() {
         String nome = nomeField.getText();
         String email = emailField.getText();
@@ -351,8 +334,7 @@ public class Main extends JFrame {
         LoginDto login = new LoginDto(email, password);
         try {
             UserEntity user = userController.login(login);
-            // se precisar do usuário logado em memória, guarde num campo.
-            abrirHome(); // <<< NOVO: abre as telas (HomeFrame com abas)
+            abrirHome();
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(loginFrame, "Falha no login: " + ex.getMessage(),
                     "Login", JOptionPane.ERROR_MESSAGE);
@@ -408,9 +390,6 @@ public class Main extends JFrame {
         JOptionPane.showMessageDialog(this, "Consulta cadastrada com sucesso!");
     }
 
-    // =========================
-    // MAIN
-    // =========================
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Main().setVisible(false));
     }

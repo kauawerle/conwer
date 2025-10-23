@@ -150,8 +150,6 @@ public class AppointmentsPanel extends JPanel {
     }
 
     private void abrirFormularioNovaConsulta() {
-// TODO: abra seu diálogo de criação/edição de consulta, então:
-// new AppointmentFormDialog(...).setVisible(true);
         JOptionPane.showMessageDialog(this, "Formulário de nova consulta ainda não implementado.");
     }
 
