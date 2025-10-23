@@ -10,7 +10,7 @@ public class AppointmentController {
     private AppointmentRepository appointmentRepository = new AppointmentRepository();
     private AppointmentService appointmentService = new AppointmentService(appointmentRepository);
 
-    public AppointmentEntity findDrugById(Long id) {
+    public AppointmentEntity findAppointmentById(Long id) {
         return (AppointmentEntity) appointmentService.getAppointmentById(id);
     }
 
@@ -18,7 +18,7 @@ public class AppointmentController {
         return appointmentService.getAllAppointment();
     }
 
-    public boolean createDrug(AppointmentEntity app) {
+    public boolean createAppointment(AppointmentEntity app) {
         try {
             appointmentService.createAppointment(app);
             return true;
@@ -28,11 +28,11 @@ public class AppointmentController {
         }
     }
 
-    public AppointmentEntity updateDrug(AppointmentEntity app) {
+    public AppointmentEntity update(AppointmentEntity app) {
         return appointmentService.updateAppointment(app);
     }
 
-    public void deleteDrug(Long id) {
+    public void delete(Long id) {
         appointmentService.deleteAppointment(id);
     }
 }

@@ -4,17 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "tb_user")
@@ -61,6 +51,13 @@ public class UserEntity {
 	@ManyToOne
 	@JoinColumn(name = "id_appointment", referencedColumnName = "id")
     private AppointmentEntity appointment;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "address_id") // FK em users
+    private AddressEntity address;
+
+    public AddressEntity getAddress() { return address; }
+    public void setAddress(AddressEntity address) { this.address = address; }
 	
 	public long getId() {
 		return id;
